@@ -133,3 +133,5 @@ dmypy.json
 *.jpg
 *.zip
 *.h5
+artifacts/prepare_callbacks/tensorboard_log_dir/tb_logs_at_2022-09-30-13-04-03/train/events.out.tfevents.1664523269.SOMESH-PC.19488.0.v2
+artifacts/
