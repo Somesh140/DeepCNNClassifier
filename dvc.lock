@@ -1,0 +1,73 @@
+schema: '2.0'
+stages:
+  prepare_base_model:
+    cmd: python src/deepClassifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+    - path: configs/config.yaml
+      md5: 8831db18479e29d127241844b228c1ac
+      size: 827
+    - path: src/deepClassifier/pipeline/stage_02_prepare_base_model.py
+      md5: a127a749a7290062f9aadd83039b5c11
+      size: 799
+    params:
+      params.yaml:
+        CLASSES: 2
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+        INCLUDE_TOP: false
+        LEARNING_RATE: 0.01
+        WEIGHTS: imagenet
+    outs:
+    - path: artifacts/prepare_base_model
+      md5: 7a19e20e5a1e2b43aab2bc81ac886776.dir
+      size: 118053368
+      nfiles: 2
+  data_ingestion:
+    cmd: python src/deepClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: configs/config.yaml
+      md5: 8831db18479e29d127241844b228c1ac
+      size: 827
+    - path: src/deepClassifier/pipeline/stage_01_data_ingestion.py
+      md5: 5540c945a88a6c1da287fb7118c00f8e
+      size: 765
+    outs:
+    - path: artifacts/data_ingestion/PetImages
+      md5: 3a5cf86541f22c236620ce5b952ad684.dir
+      size: 848866410
+      nfiles: 24998
+  training:
+    cmd: python src/deepClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: artifacts/data_ingestion/PetImages
+      md5: 3a5cf86541f22c236620ce5b952ad684.dir
+      size: 848866410
+      nfiles: 24998
+    - path: artifacts/prepare_base_model
+      md5: 7a19e20e5a1e2b43aab2bc81ac886776.dir
+      size: 118053368
+      nfiles: 2
+    - path: configs/config.yaml
+      md5: 8831db18479e29d127241844b228c1ac
+      size: 827
+    - path: src/deepClassifier/components/prepare_callback.py
+      md5: 512260994aeff46e79fdb568616a2154
+      size: 912
+    - path: src/deepClassifier/pipeline/stage_03_training.py
+      md5: 52292c6f33cf0322b952e76a82078130
+      size: 993
+    params:
+      params.yaml:
+        AUGMENTATION: true
+        BATCH_SIZE: 32
+        EPOCHS: 1
+        IMAGE_SIZE:
+        - 224
+        - 224
+        - 3
+    outs:
+    - path: artifacts/training/model.h5
+      md5: d57d35422b31fcf27e22c9c5bdc9f61c
+      size: 59135136
