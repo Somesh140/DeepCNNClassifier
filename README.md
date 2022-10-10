@@ -14,3 +14,15 @@
 11. run "dvc repro" for running all the stages in pipeline
 
 ![img](https://github.com/Somesh140/DeepCNNClassifier/blob/main/docs/images/Data%20Ingestion@2x%20(1).png?raw=true)
+
+STEP 1: Set the env variable | Get it from dagshub -> remote tab -> mlflow tab
+
+MLFLOW_TRACKING_URI=https://dagshub.com/<>/<>.mlflow\
+MLFLOW_TRACKING_USERNAME= <>\
+MLFLOW_TRACKING_PASSWORD=<> \
+
+STEP 2: install mlflow
+
+STEP 3: Set remote URI
+
+STEP 4: Use context manager of mlflow to start run and then log metrics, params and model
